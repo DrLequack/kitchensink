@@ -21,4 +21,10 @@ To run this project, ensure you have the following installed:
    ```sh
    docker-compose up
    ```
+   
+## App url:
+```
+http://localhost:8085/kitchensink/
+```
+
 
