@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<h1>Welcome to JBoss!</h1>
+
+<div>
+    <p>You have successfully deployed a Jakarta EE Enterprise Application.</p>
+</div>
+
+<form id="reg" th:action="@{/register}" method="post" th:object="${newMember}">
+    <h2>Member Registration</h2>
+    <p>Enforces annotation-based constraints defined on the model class.</p>
+    <table>
+        <tr>
+            <td><label for="name">Name:</label></td>
+            <td><input type="text" id="name" th:field="*{name}" /></td>
+            <td><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid"></span></td>
+        </tr>
+        <tr>
+            <td><label for="email">Email:</label></td>
+            <td><input type="text" id="email" th:field="*{email}" /></td>
+            <td><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid"></span></td>
+        </tr>
+        <tr>
+            <td><label for="phoneNumber">Phone #:</label></td>
+            <td><input type="text" id="phoneNumber" th:field="*{phoneNumber}" /></td>
+            <td><span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="invalid"></span></td>
+        </tr>
+    </table>
+
+    <p>
+        <input type="submit" value="Register" class="register" />
+        <span th:if="${messages}" th:text="${messages}" class="messages"></span>
+    </p>
+</form>
+
+<h2>Members</h2>
+<div th:if="${#lists.isEmpty(members)}">
+    <em>No registered members.</em>
+</div>
+<table th:if="${not #lists.isEmpty(members)}" class="simpletablestyle">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone #</th>
+        <th>REST URL</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${members}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.email}"></td>
+        <td th:text="${item.phoneNumber}"></td>
+        <td>
+            <a th:href="@{/rest/members/{id}(id=${item.id})}" th:text="'/rest/members/' + ${item.id}"></a>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="5">REST URL for all members: <a th:href="@{/rest/members}">/rest/members</a></td>
+    </tr>
+    </tfoot>
+</table>
+</body>
+</html>
