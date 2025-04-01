@@ -26,6 +26,12 @@ public class HomeController {
             return "index";
         }
 
+        if(memberService.isEmailPresent(newMember.getEmail())) {
+            model.addAttribute("members", memberService.getAllMembers());
+            model.addAttribute("messages", "Email already taken");
+            return "index";
+        }
+
         memberService.saveMember(newMember);
         model.addAttribute("messages", "Registered!");
         model.addAttribute("members", memberService.getAllMembers());

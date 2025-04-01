@@ -21,7 +21,7 @@ public class MemberRestController {
 
     @GetMapping("members/{id}")
     public Member getMemberById(@PathVariable Long id) {
-        return memberService.getMember(id);
+        return memberService.findMemberById(id);
     }
 
     @PostMapping("members")

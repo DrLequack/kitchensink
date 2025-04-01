@@ -22,9 +22,13 @@ public class MemberService {
         return memberRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
-    public Member getMember(Long id) {
+    public Member findMemberById(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public Boolean isEmailPresent (String email) {
+        return memberRepository.existsByEmail(email);
     }
 
     public Member saveMember(Member member) {
